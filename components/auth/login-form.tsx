@@ -1,10 +1,9 @@
 "use client";
-import * as z from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { useState } from "react";
 import { useForm } from "react-hook-form";
-import { useState, useTransition } from "react";
+import * as z from "zod";
 
-import { Loginchema } from "@/schemas";
 import {
   Form,
   FormControl,
@@ -13,18 +12,19 @@ import {
   FormLabel,
   FormMessage,
 } from "@/components/ui/form";
+import { Loginchema } from "@/schemas";
 
+import { login } from "@/actions/login";
 import { CardWrapper } from "@/components/auth/card-wrapper";
-import { Input } from "@/components/ui/input";
-import { Button } from "@/components/ui/button";
 import { FormError } from "@/components/form-error";
 import { FormSuccess } from "@/components/form-success";
-import { login } from "@/actions/login";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
 
 export const LoginForm = () => {
   const [error, setError] = useState<string | undefined>("");
   const [success, setSuccess] = useState<string | undefined>("");
-  const [isPending, startTransition] = useTransition();
+  // const [isPending, startTransition] = useTransition();
   const form = useForm<z.infer<typeof Loginchema>>({
     resolver: zodResolver(Loginchema),
     defaultValues: {
@@ -33,18 +33,11 @@ export const LoginForm = () => {
     },
   });
 
-  const onSubmit = (values: z.infer<typeof Loginchema>) => {
+  const onSubmit = async (values: z.infer<typeof Loginchema>) => {
     setError("");
     setSuccess("");
-    startTransition(() => {
-      login(values).then((data) => {
-        if (data.error) {
-          setError(data.error);
-          return;
-        }
-        setSuccess(data.success || "somthing went wrong in login");
-      });
-    });
+
+    login(values);
   };
   return (
     <CardWrapper
@@ -64,7 +57,7 @@ export const LoginForm = () => {
                   <FormLabel>Email</FormLabel>
                   <FormControl>
                     <Input
-                      disabled={isPending}
+                      // disabled={isPending}
                       type="email"
                       placeholder="type your email"
                       {...field}
@@ -82,10 +75,11 @@ export const LoginForm = () => {
                   <FormLabel>password</FormLabel>
                   <FormControl>
                     <Input
-                      disabled={isPending}
+                      // disabled={isPending}
                       type="password"
                       placeholder="******"
                       {...field}
+                      autoComplete="off"
                     />
                   </FormControl>
                   <FormMessage />
@@ -95,7 +89,11 @@ export const LoginForm = () => {
           </div>
           <FormError message={error} />
           <FormSuccess message={success} />
-          <Button disabled={isPending} type="submit" className="w-full">
+          <Button
+            // disabled={isPending}
+            type="submit"
+            className="w-full"
+          >
             Login
           </Button>
         </form>
