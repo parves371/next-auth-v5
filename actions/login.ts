@@ -6,9 +6,7 @@ import { Loginchema } from "@/schemas";
 import { DEFAULT_LOGIN_REDIRECT } from "@/routes";
 import { AuthError } from "next-auth";
 
-export const login = async (
-  values: z.infer<typeof Loginchema>
-): Promise<{ error?: string; success?: string }> => {
+export const login = async (values: z.infer<typeof Loginchema>) => {
   const validatedFields = Loginchema.safeParse(values);
   if (!validatedFields.success) {
     return {
@@ -24,7 +22,6 @@ export const login = async (
       password,
       redirectTo: DEFAULT_LOGIN_REDIRECT,
     });
-    return { success: "Login successful!" };
   } catch (error) {
     if (error instanceof AuthError) {
       switch (error.type) {
