@@ -1,6 +1,6 @@
 "use client";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useState } from "react";
+import { useState, useTransition } from "react";
 import { useForm } from "react-hook-form";
 import * as z from "zod";
 
@@ -24,7 +24,7 @@ import { Input } from "@/components/ui/input";
 export const LoginForm = () => {
   const [error, setError] = useState<string | undefined>("");
   const [success, setSuccess] = useState<string | undefined>("");
-  // const [isPending, startTransition] = useTransition();
+  const [isPending, startTransition] = useTransition();
   const form = useForm<z.infer<typeof Loginchema>>({
     resolver: zodResolver(Loginchema),
     defaultValues: {
@@ -37,7 +37,15 @@ export const LoginForm = () => {
     setError("");
     setSuccess("");
 
-    login(values);
+    startTransition(async () => {
+      login(values).then((data) => {
+        if (data.error) {
+          setError(data.error);
+          return;
+        }
+        setSuccess(data.success || "Something went wrong during login");
+      });
+    });
   };
   return (
     <CardWrapper
@@ -57,7 +65,7 @@ export const LoginForm = () => {
                   <FormLabel>Email</FormLabel>
                   <FormControl>
                     <Input
-                      // disabled={isPending}
+                      disabled={isPending}
                       type="email"
                       placeholder="type your email"
                       {...field}
@@ -75,7 +83,7 @@ export const LoginForm = () => {
                   <FormLabel>password</FormLabel>
                   <FormControl>
                     <Input
-                      // disabled={isPending}
+                      disabled={isPending}
                       type="password"
                       placeholder="******"
                       {...field}
@@ -90,7 +98,7 @@ export const LoginForm = () => {
           <FormError message={error} />
           <FormSuccess message={success} />
           <Button
-            // disabled={isPending}
+            disabled={isPending}
             type="submit"
             className="w-full"
           >
