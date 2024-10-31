@@ -47,7 +47,7 @@ export const LoginForm = () => {
     startTransition(async () => {
       login(values).then((data) => {
         setError(data?.error);
-        // setSuccess(data.success || "Something went wrong during login");
+        setSuccess(data?.success);
       });
     });
   };

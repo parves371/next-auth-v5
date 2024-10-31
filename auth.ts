@@ -9,7 +9,7 @@ import { UserRole } from "@prisma/client";
 export const { handlers, auth, signIn, signOut } = NextAuth({
   pages: {
     signIn: "/auth/login",
-    error:"/auth/error",
+    error: "/auth/error",
   },
 
   events: {
@@ -26,15 +26,16 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
   },
 
   callbacks: {
-    // async signIn({ user }) {
-    //   const existingUser = await getUserById(user.id as string);
+    async signIn({ user, account }) {
+      // Allow OAuth without email verification
+      if (account?.provider !== "credentials") return true;
 
-    //   if (!existingUser || !existingUser.emailVerified) {
-    //     return false;
-    //   }
+      const existingUser = await getUserById(user.id);
 
-    //   return true;
-    // },
+      if (!existingUser?.emailVerified) return false;
+
+      return true;
+    },
 
     async session({ session, token }) {
       if (token.sub && session.user) {
