@@ -7,6 +7,7 @@ import { Registerchema } from "@/schemas";
 import { db } from "@/lib/db";
 import { getUserByEmail } from "@/data/user";
 import { generateVerificationToken } from "@/lib/token";
+import { sendVerificationEmail } from "@/lib/mail";
 
 export const register = async (values: z.infer<typeof Registerchema>) => {
   const validatedFeilds = Registerchema.safeParse(values);
@@ -34,8 +35,8 @@ export const register = async (values: z.infer<typeof Registerchema>) => {
       password: hashedPassword,
     },
   });
-  const varificationToken = await generateVerificationToken(email);
-  // sent varification email
+  const verificationToken = await generateVerificationToken(email);
+  await sendVerificationEmail(verificationToken.email, verificationToken.token);
 
   return {
     success: "emial send successfully!",

@@ -30,9 +30,11 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
       // Allow OAuth without email verification
       if (account?.provider !== "credentials") return true;
 
-      const existingUser = await getUserById(user.id);
+      const existingUser = await getUserById(user.id as string);
 
       if (!existingUser?.emailVerified) return false;
+
+      // add two factor authentication check
 
       return true;
     },
