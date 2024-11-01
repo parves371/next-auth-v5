@@ -8,6 +8,11 @@ export const Loginchema = z.object({
     message: "Password is required",
   }),
 });
+export const ResetSchema = z.object({
+  email: z.string().email({
+    message: "Please enter a valid email address",
+  }),
+});
 export const Registerchema = z.object({
   email: z.string().email({
     message: "Please enter a valid email address",
