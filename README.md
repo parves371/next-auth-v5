@@ -1,36 +1,50 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Next-Auth Authentication App
 
-## Getting Started
+This project is a **Next.js 14** full-stack application with advanced authentication features, utilizing **Auth.js (NextAuth v5)** to manage user login, registration, and role-based access. It includes support for credential-based authentication, OAuth with Google and GitHub, and various security features like two-factor authentication, email verification, and role management.
 
-First, run the development server:
+## Key Features
+
+- 🔐 **Auth.js (Next-Auth v5)** for flexible authentication flows
+- 🚀 **Next.js 14** with support for server actions
+- 🔑 **Credentials Provider** for username/password-based login
+- 🌐 **OAuth Providers** for Google & GitHub social logins
+- 🔒 **Forgot Password** functionality
+- ✉️ **Email Verification** for new users
+- 📱 **Two-Factor Verification (2FA)** for added security
+- 👥 **User Roles**: Admin & User
+- 🔓 **Login Component** with redirect or modal options
+- 📝 **Register Component**
+- 🤔 **Forgot Password Component**
+- ✅ **Verification Component**
+- ⚠️ **Error Component**
+- 🔘 **Login Button**
+- 🚪 **Logout Button**
+- 🚧 **Role Gate** component to restrict content by role
+- 🔍 Exploring **Next.js Middleware**
+- 📈 Extending & Exploring **NextAuth Sessions**
+- 🔄 Exploring **NextAuth Callbacks**
+- 👤 `useCurrentUser` custom hook
+- 🛂 `useRole` custom hook
+- 🧑 `currentUser` utility function
+- 👮 `currentRole` utility function
+- 🖥️ Example with **Server Component**
+- 💻 Example with **Client Component**
+- 👑 Render content for admins using the **RoleGate Component**
+- 🛡️ **Protect API Routes** for admins only
+- 🔐 **Protect Server Actions** for admins only
+- 📧 Change email with verification in **Settings Page**
+- 🔑 Change password with confirmation in **Settings Page**
+- 🔔 Enable/Disable two-factor auth in **Settings Page**
+- 🔄 Change user role (development purposes only)
+
+## Installation
+
+Clone this repository and install dependencies:
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+git clone https://github.com/parves371/next-auth-v5.git
+cd next-auth-v5
+npm install
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
