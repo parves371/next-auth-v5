@@ -1,5 +1,6 @@
 import { PrismaClient } from "@prisma/client";
 
+// Extend `globalThis` without using namespaces
 declare global {
   var prisma: PrismaClient | undefined;
 }
