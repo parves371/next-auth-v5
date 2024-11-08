@@ -24,7 +24,7 @@ export default function Home() {
           a simple auth app with next.js 14 and next auth 5
         </p>
         <div>
-          <LoginButton>
+          <LoginButton mode="modal" asChild >
             <Button variant={"secondary"} size={"lg"}>
               Sign in
             </Button>

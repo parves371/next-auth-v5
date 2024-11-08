@@ -5,11 +5,14 @@ import { signIn } from "next-auth/react"; // Corrected import
 
 import { Button } from "@/components/ui/button";
 import { DEFAULT_LOGIN_REDIRECT } from "@/routes";
+import { useSearchParams } from "next/navigation";
 
 export const Social = () => {
+  const searchParams = useSearchParams();
+  const callback = searchParams.get("callback");
   const onClick = (provider: "google" | "github") => {
     signIn(provider, {
-      callbackUrl: DEFAULT_LOGIN_REDIRECT, // Fixed typo here
+      callbackUrl: callback || DEFAULT_LOGIN_REDIRECT, 
     });
   };
 
